@@ -11,6 +11,7 @@ import { createStackNavigator,  } from 'react-navigation-stack';
 
 import HomeScreen from './screens/Home';
 import SurveyScreen from './screens/SurveyMenu';
+import StudentFormScreen from './screens/StudentFormScreen';
 
 const AppNavigator = createStackNavigator( {
   Home: {
@@ -19,9 +20,12 @@ const AppNavigator = createStackNavigator( {
   Survey: {
     screen: SurveyScreen,
   },
+  StudentForm: {
+    screen: StudentFormScreen,
+  },
 }, 
   {
-      initialRouteName: 'Survey',
+      initialRouteName: 'StudentForm',
   }
 );
 
