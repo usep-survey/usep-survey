@@ -35,15 +35,15 @@ class StudentFormScreen extends React.Component {
         return (
             <View style={style.container}>
                 <View style={style.header}>
-                    <Text style={{color: 'white', textAlign: 'center', fontSize: 22, paddingTop: 15}}>Student's Satisfaction Survey Form</Text>
+                    <Text style={style.headerTitle}>Student's Satisfaction Survey Form</Text>
                 </View>
 
                 <View style={style.body}>
                     <Text style={style.label}>College:</Text>
                     <Picker
-                        selectedValue={this.state.course}
-                            onValueChange={(course, courseIndex) => {
-                                this.setState({course: course});
+                        selectedValue={this.state.college}
+                            onValueChange={(college, courseIndex) => {
+                                this.setState({college: college});
                             }}
                         >
                             <Picker.Item label="College of Engineering" value="CE"/>
@@ -64,7 +64,7 @@ class StudentFormScreen extends React.Component {
                             <Picker.Item label="BS Information Technology" value="BSIT"/>
                             <Picker.Item label="BS Civil Engineering" value="BSCE"/>
                     </Picker>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
+                    {/* <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text>Year Level:</Text>
                             <TextInput maxLength={1} keyboardType={'numeric'} style={style.numericInput}/>
@@ -80,6 +80,17 @@ class StudentFormScreen extends React.Component {
                             <Text>Age:</Text>
                             <TextInput maxLength={2} keyboardType={'numeric'} style={[style.numericInput, {width: 27}]}/>
                         </View>
+                    </View> */}
+                    <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
+                        <Text style={style.label}>Year Level:</Text>
+                        <TextInput maxLength={1} keyboardType={'numeric'}/>
+                        <Text style={style.label}>Gender:</Text>
+                            <View style={{flexDirection: 'row', paddingLeft: 5}}>
+                                <TouchableOpacity style={style.sexInput}><Text>Male</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput}><Text>Female</Text></TouchableOpacity>
+                            </View>
+                        <Text style={style.label}>Age:</Text>
+                        <TextInput maxLength={2} keyboardType={'numeric'}/>
                     </View>
                 </View>
 
@@ -97,10 +108,17 @@ class StudentFormScreen extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
     },
     header: {
         backgroundColor: '#800000',
         height: 60,
+    },
+    headerTitle: {
+        color: 'white', 
+        textAlign: 'center', 
+        fontSize: 22, 
+        paddingTop: 15
     },
     body: {
         marginTop: 30,
