@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState,
+import { View, Alert, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState,
     Image, TextInput, StyleSheet, Button, Picker} from 'react-native';
 
 import { styles } from './css/StudentFormCSS';
@@ -33,61 +33,82 @@ class StudentFormScreen extends React.Component {
     render() {
         
         return (
-        <View style={{flex: 1}}>
+            <View style={style.container}>
+                <View style={style.header}>
+                    <Text style={{color: 'white', textAlign: 'center', fontSize: 22, paddingTop: 15}}>Student's Satisfaction Survey Form</Text>
+                </View>
 
-            {/* College Form Container */}
-            <View style={[ styles.FormContainer, ]}>
-
-                {/* Dropdown Input College Container */}
-                <View style={[ styles.TextInputContainer, ]}>
-
-                    {/* Dropdown College List */}
-                    <Text style={[styles.FormLabel,]}>College: </Text>
+                <View style={style.body}>
+                    <Text>College:</Text>
                     <Picker
-                        itemTextStyle={{ fontSize: 15 }}
-                        style={[ styles.DropdownInput, ]}
-                        selectedValue={this.state.college}
-                        onValueChange={(college, collegeIndex) => {
-                            this.setState({college: college});
-                        }}
-                    >
-                        <Picker.Item label="CIC" value="CIC"/>
-                        <Picker.Item label="CAS" value="CAS"/>
-                        <Picker.Item label="CED" value="CED"/>
-                        <Picker.Item label="CEC" value="CEC"/>
-                        <Picker.Item label="CT" value="CT"/>
-                        <Picker.Item label="CBA" value="CBA"/>
-                    </Picker>
-                </View>
-
-                {/* Dropdown Input Course Container */}
-                <View style={[ styles.TextInputContainer, ]}>
-
-                    {/* Dropdown Course List */}
-                    <Picker 
-                        style={[ styles.DropdownInput, ]}
                         selectedValue={this.state.course}
-                        onValueChange={(course, courseIndex) => {
-                            this.setState({course: course});
-                        }}
-                    >
-                        <Picker.Item label="CIC" value="CIC"/>
-                        <Picker.Item label="CAS" value="CAS"/>
-                        <Picker.Item label="CED" value="CED"/>
-                        <Picker.Item label="CEC" value="CEC"/>
-                        <Picker.Item label="CT" value="CT"/>
-                        <Picker.Item label="CBA" value="CBA"/>
+                            onValueChange={(course, courseIndex) => {
+                                this.setState({course: course});
+                            }}
+                        >
+                            <Picker.Item label="College of Engineering" value="CE"/>
+                            <Picker.Item label="College of Arts and Sciences" value="CAS"/>
+                            <Picker.Item label="College of Education" value="CED"/>
+                            <Picker.Item label="College of Information and Computing" value="CIC"/>
+                            <Picker.Item label="College of Technology" value="CT"/>
+                            <Picker.Item label="College of Governance and Business" value="CGB"/>
+                            <Picker.Item label="School of Applied Economics" value="SAEC"/>
                     </Picker>
+                    <Text>Course / Program:</Text>
+                    <Picker
+                        selectedValue={this.state.course}
+                            onValueChange={(course, courseIndex) => {
+                                this.setState({course: course});
+                            }}
+                        >
+                            <Picker.Item label="BS Information Technology" value="BSIT"/>
+                            <Picker.Item label="BS Civil Engineering" value="BSCE"/>
+                    </Picker>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text>Year Level:</Text>
+                            <Text>0</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text>Sex:</Text>
+                            <Text>0</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text>Age:</Text>
+                            <Text>0</Text>
+                        </View>
+                    </View>
                 </View>
-                
+
+                <View style={style.button}>
+                    <Button title="PROCEED"
+                        onPress={() => Alert.alert('Test')}
+                        />
+                </View>
             </View>
-        </View>
         );
     }
 }
 
 
 const style = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    header: {
+        backgroundColor: '#800000',
+        height: 60,
+    },
+    body: {
+        marginTop: 30,
+        marginLeft: 20,
+        marginRight: 20,
+    },
+    button: {
+        bottom: 0,
+        flex: 1,
+        justifyContent: 'flex-end',
+    }
     
 });
 
