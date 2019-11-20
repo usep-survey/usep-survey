@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState,
+import { View, Alert, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState, TouchableOpacity,
     Image, TextInput, StyleSheet, Button, Picker} from 'react-native';
 
 import { styles } from './css/StudentFormCSS';
@@ -39,7 +39,7 @@ class StudentFormScreen extends React.Component {
                 </View>
 
                 <View style={style.body}>
-                    <Text>College:</Text>
+                    <Text style={style.label}>College:</Text>
                     <Picker
                         selectedValue={this.state.course}
                             onValueChange={(course, courseIndex) => {
@@ -54,7 +54,7 @@ class StudentFormScreen extends React.Component {
                             <Picker.Item label="College of Governance and Business" value="CGB"/>
                             <Picker.Item label="School of Applied Economics" value="SAEC"/>
                     </Picker>
-                    <Text>Course / Program:</Text>
+                    <Text style={style.label}>Course / Program:</Text>
                     <Picker
                         selectedValue={this.state.course}
                             onValueChange={(course, courseIndex) => {
@@ -65,17 +65,20 @@ class StudentFormScreen extends React.Component {
                             <Picker.Item label="BS Civil Engineering" value="BSCE"/>
                     </Picker>
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text>Year Level:</Text>
-                            <Text>0</Text>
+                            <TextInput maxLength={1} keyboardType={'numeric'} style={style.numericInput}/>
                         </View>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text>Sex:</Text>
-                            <Text>0</Text>
+                            <View style={{flexDirection: 'row', paddingLeft: 5}}>
+                                <TouchableOpacity style={style.sexInput}><Text>Male</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput}><Text>Female</Text></TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text>Age:</Text>
-                            <Text>0</Text>
+                            <TextInput maxLength={2} keyboardType={'numeric'} style={[style.numericInput, {width: 27}]}/>
                         </View>
                     </View>
                 </View>
@@ -103,11 +106,28 @@ const style = StyleSheet.create({
         marginTop: 30,
         marginLeft: 20,
         marginRight: 20,
+        borderWidth: 0.5,
+        padding: 10,
+        borderRadius: 2,
+    },
+    label: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     button: {
         bottom: 0,
         flex: 1,
         justifyContent: 'flex-end',
+    },
+    numericInput: {
+        borderWidth: 0.5,
+        height: 40, 
+        width: 20, 
+        marginLeft: 5,
+    },
+    sexInput: {
+        marginRight: 5,
+        borderWidth: 0.5,
     }
     
 });
