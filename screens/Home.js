@@ -3,6 +3,13 @@ import { View, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler,
     Image, Modal, ActivityIndicator, StyleSheet, Button, ScrollView} from 'react-native';
 
 import { withNavigation } from 'react-navigation';
+import { styles } from './css/StudentFormCSS';
+
+import VerySatisfied from './images/emojis/very-satisfied.png';
+import Satisfied from './images/emojis/gray-satisfied.png';
+import Dissatisfied from './images/emojis/gray-dissatisfied.png';
+import VeryDissatisfied from './images/emojis/gray-very-dissatisfied.png';
+import Information from './images/emojis/question.png';
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -29,11 +36,12 @@ class HomeScreen extends React.Component {
         this.sectionID = 0;
         this.fieldID = 0;
         this.sectionList = [];
-        this.listField = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        this.section = 65;
     }
 
     componentDidMount() {
         this.getSurveyForm();
+        //alert(String.fromCharCode(65));
     }
 
     submitSurvey = () => {
@@ -92,6 +100,7 @@ class HomeScreen extends React.Component {
             if(this.index >= 0) {
                 this.setState({next: true, submit: false,});
             }
+            this.section = this.section - 1;
             this.scrollToTop();
         }
     }
@@ -119,6 +128,7 @@ class HomeScreen extends React.Component {
             if(this.index === this.sectionList.length - 1) {
                 this.setState({next: false, prev: true, submit: true});
             }
+            this.section = this.section + 1;
             this.scrollToTop();
         }
     }
@@ -128,54 +138,90 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        let CollegeSurveyForm = this.form !== null ? this.form.map(section => 
+        let num = 0;
+        let StudentSurveyForm = this.form !== null ? this.form.map(section => 
             {
                 if(this.state.id === section.SectionID) {
+                    num = num + 1;
                     return (
                         <View key={section.FieldID} style={{
-                            width: '100%', 
-                            height: 300, 
-                            padding: 20,
-                            borderWidth: 1,
+                            width: '100%',
+                            marginTop: 20,
+                            marginBottom: 20,
                             flexDirection: 'row',
                             flexWrap: 'wrap',
                         }}>
-                            <Text style={{
-                                textAlign: 'center',
-                                padding: 10,
-                                fontSize: 16,
+                            <View style={{
                                 width: '100%',
-                                marginBottom: '10%',
-                                backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                            }}>{section.FieldName}</Text>
+                                marginBottom: 20,
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                borderRadius: 5,
+                            }}>
+                                <Text style={{
+                                    width: '15%',
+                                    fontSize: 17,
+                                    padding: 10,
+                                    color: '#168F93',
+                                }}>
+                                    {num + "."}
+                                </Text>
+                                <Text style={{
+                                    textAlign: 'left',
+                                    padding: 10,
+                                    paddingLeft: 0,
+                                    fontSize: 17,
+                                    width: '85%',
+                                    color: '#168F93',
+                                }}>{ section.FieldName + '.'}</Text>
+                            </View>
 
-                            <View style={{width: '5%', height: '25%'}}></View>
-                            <View style={{height: '25%', width: '40%',}}>
-                                <Button title="Very Satisfied" onPress={()=>{
-                                    this.setResponse(section.FieldID);
-                                }}></Button>
-                            </View>
-                            <View style={{width: '10%', height: '25%'}}></View>
-                            <View style={{height: '25%', width: '40%',}}>
-                                <Button title="Satisfied" onPress={()=>{
-                                    this.setResponse(section.FieldID);
-                                }}></Button>
-                            </View>
+                            <View style={{
+                                width: '100%',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                marginBottom: 25,
+                            }}>
+                                <View style={{width: '2.5%', height: '100%'}}></View>
+                                <View style={{height: '150%', width: '20%', }}>
+                                    <Image style={{
+                                        width: 50,
+                                        height: 50,
+                                    }} source={VerySatisfied}></Image>
+                                </View>
+                                <View style={{width: '5%', height: '100%'}}></View>
+                                <View style={{height: '150%', width: '20%', }}>
+                                    <Image style={{
+                                        width: 50,
+                                        height: 50,
+                                    }} source={Satisfied}></Image>
+                                </View>
 
-                            <View style={{width: '100%', height: '5%'}}></View>
-
-                            <View style={{width: '5%', height: '25%'}}></View>
-                            <View style={{height: '25%', width: '40%',}}>
-                                <Button title="Dissatisfied" onPress={()=>{
-                                    this.setResponse(section.FieldID);
-                                }}></Button>
+                                <View style={{width: '5%', height: '100%'}}></View>
+                                <View style={{height: '150%', width: '20%', }}>
+                                    <Image style={{
+                                        width: 50,
+                                        height: 50,
+                                    }} source={Dissatisfied}></Image>
+                                </View>
+                                <View style={{width: '5%', height: '100%'}}></View>
+                                <View style={{height: '150%', width: '20%', }}>
+                                    <Image style={{
+                                        width: 50,
+                                        height: 50,
+                                    }} source={VeryDissatisfied}></Image>
+                                </View>
+                                
                             </View>
-                            <View style={{width: '10%', height: '25%'}}></View>
-                            <View style={{height: '25%', width: '40%',}}>
-                                <Button title="Very Dissatisfied" onPress={()=>{
-                                    this.setResponse(section.FieldID);
-                                }}></Button>
-                            </View>
+                            <View style={{
+                                position: 'absolute',
+                                bottom: -20,
+                                left: '-50%',
+                                width: '200%',
+                                height: 1,
+                                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                            }}></View>
                         </View>
                     )
                 } else {
@@ -185,88 +231,69 @@ class HomeScreen extends React.Component {
         ): '';
         return (
         <View style={{flex: 1}}>
-            <Text style={{
-                textAlign: 'left',
-                fontSize: 23,
-                padding: 15,
-            }}>College Survey</Text>
-            {this.state.loading && 
-                <View style={{
-                    position: 'absolute',
-                    top: '40%',
-                    left: '30%',
-                    width: '40%',
-                    height: '25%',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                }}>
-                    <View style={{
-                        width: '100%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
+            <View style={[styles.HeaderSurveyContainer]}>
+                <Text style={{
+                    textAlign: 'left',
+                    fontSize: 20,
+                    color: '#FFFFFF',
+                }}>Student's Satisfaction Survey</Text>
+            </View>
+
+            {/* Loading Survey Form */}
+            { this.state.loading && 
+                <View style={[styles.ActivityIndicatorContainer]}>
+                    <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', }}>
                         <ActivityIndicator size={50} color='red'/>
                     </View>
                     <Text>Loading survey form...</Text>
                 </View>
             }
 
+            {/* Loaded Survey Form */}
             { this.state.form &&
                 <View style={{flex: 1}}>
                     
-                    <Text style={{
-                        textAlign: 'center',
-                        fontSize: 23,
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        padding: 10,
-                    }}>{this.state.id === 0 ? '' : this.state.id + '.)   ' + this.state.username}</Text>
-                    <ScrollView ref='scrollview' style={{
+                    {/* Survey Sections, Label */}
+                    <View style={{
                         width: '100%',
-                        height: '100%',
-                        borderWidth: 1,
-                        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
                     }}>
-                        {CollegeSurveyForm}
+                        <Text style={[styles.SurveySection, { width: '15%', paddingRight: 0, }]}>
+                            {this.state.id === 0 ? '' : String.fromCharCode(this.section) + '.'}
+                        </Text>
+                        <Text style={[styles.SurveySection, { width: '85%', paddingLeft: 0,}]}>
+                            {this.state.id === 0 ? '' : this.state.username}
+                        </Text>
+                    </View>
+                    
+                    
+                    {/* Section Fields, ScrollView Container */}
+                    <ScrollView ref='scrollview' style={[styles.FormFieldScrollContainer]}>
+                        {/* Fields of each Section, Survey Form */}
+                        { StudentSurveyForm }
                         
-                        <View style={{
-                            width: '100%',
-                            height: '15%',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            justifyContent: 'center',
-                            margin: 10,
-                        }}>
+
+                        {/* Navigation buttons, next, prev and submit survey */}
+                        <View style={[styles.NavButtonContainer]}>
                             { this.state.prev && 
-                                <View style={{
-                                    width: '25%',
-                                    height: '100%',
-                                }}>
+                                <View style={[styles.NavButton]}>
                                     <Button title="Previous" onPress={this.previous}></Button>
                                 </View>
                             }
 
-                            <View style={{
-                                width: '25%',
-                                height: '100%',
-                            }}>
+                            <View style={[styles.NavButton]}>
                             </View>
 
                             { this.state.next && 
-                                <View style={{
-                                    width: '25%',
-                                    height: '100%',
-                                }}>
+                                <View style={[styles.NavButton]}>
                                     <Button title="Next" onPress={this.next}></Button>
                                 </View>
                             }
 
                             { this.state.submit && 
-                                <View style={{
-                                    width: '25%',
-                                    height: '100%',
-                                }}>
+                                <View style={[styles.NavButton]}>
                                     <Button title="Submit"></Button>
                                 </View>
                             }
@@ -279,12 +306,5 @@ class HomeScreen extends React.Component {
         );
     }
 }
-
-
-const style = StyleSheet.create({
-    
-});
-
-
 
 export default withNavigation(HomeScreen);
