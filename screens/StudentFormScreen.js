@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState,
+import { View, Alert, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState, TouchableOpacity,
     Image, TextInput, StyleSheet, Button, Picker} from 'react-native';
 
 import { styles } from './css/StudentFormCSS';
@@ -33,61 +33,120 @@ class StudentFormScreen extends React.Component {
     render() {
         
         return (
-        <View style={{flex: 1}}>
+            <View style={style.container}>
+                <View style={style.header}>
+                    <Text style={style.headerTitle}>Student's Satisfaction Survey Form</Text>
+                </View>
 
-            {/* College Form Container */}
-            <View style={[ styles.FormContainer, ]}>
-
-                {/* Dropdown Input College Container */}
-                <View style={[ styles.TextInputContainer, ]}>
-
-                    {/* Dropdown College List */}
-                    <Text style={[styles.FormLabel,]}>College: </Text>
+                <View style={style.body}>
+                    <Text style={style.label}>College:</Text>
                     <Picker
-                        itemTextStyle={{ fontSize: 15 }}
-                        style={[ styles.DropdownInput, ]}
                         selectedValue={this.state.college}
-                        onValueChange={(college, collegeIndex) => {
-                            this.setState({college: college});
-                        }}
-                    >
-                        <Picker.Item label="CIC" value="CIC"/>
-                        <Picker.Item label="CAS" value="CAS"/>
-                        <Picker.Item label="CED" value="CED"/>
-                        <Picker.Item label="CEC" value="CEC"/>
-                        <Picker.Item label="CT" value="CT"/>
-                        <Picker.Item label="CBA" value="CBA"/>
+                            onValueChange={(college, courseIndex) => {
+                                this.setState({college: college});
+                            }}
+                        >
+                            <Picker.Item label="College of Engineering" value="CE"/>
+                            <Picker.Item label="College of Arts and Sciences" value="CAS"/>
+                            <Picker.Item label="College of Education" value="CED"/>
+                            <Picker.Item label="College of Information and Computing" value="CIC"/>
+                            <Picker.Item label="College of Technology" value="CT"/>
+                            <Picker.Item label="College of Governance and Business" value="CGB"/>
+                            <Picker.Item label="School of Applied Economics" value="SAEC"/>
                     </Picker>
-                </View>
-
-                {/* Dropdown Input Course Container */}
-                <View style={[ styles.TextInputContainer, ]}>
-
-                    {/* Dropdown Course List */}
-                    <Picker 
-                        style={[ styles.DropdownInput, ]}
+                    <Text style={style.label}>Course / Program:</Text>
+                    <Picker
                         selectedValue={this.state.course}
-                        onValueChange={(course, courseIndex) => {
-                            this.setState({course: course});
-                        }}
-                    >
-                        <Picker.Item label="CIC" value="CIC"/>
-                        <Picker.Item label="CAS" value="CAS"/>
-                        <Picker.Item label="CED" value="CED"/>
-                        <Picker.Item label="CEC" value="CEC"/>
-                        <Picker.Item label="CT" value="CT"/>
-                        <Picker.Item label="CBA" value="CBA"/>
+                            onValueChange={(course, courseIndex) => {
+                                this.setState({course: course});
+                            }}
+                        >
+                            <Picker.Item label="BS Information Technology" value="BSIT"/>
+                            <Picker.Item label="BS Civil Engineering" value="BSCE"/>
                     </Picker>
+                    {/* <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Text>Year Level:</Text>
+                            <TextInput maxLength={1} keyboardType={'numeric'} style={style.numericInput}/>
+                        </View>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Text>Sex:</Text>
+                            <View style={{flexDirection: 'row', paddingLeft: 5}}>
+                                <TouchableOpacity style={style.sexInput}><Text>Male</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput}><Text>Female</Text></TouchableOpacity>
+                            </View>
+                        </View>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Text>Age:</Text>
+                            <TextInput maxLength={2} keyboardType={'numeric'} style={[style.numericInput, {width: 27}]}/>
+                        </View>
+                    </View> */}
+                    <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
+                        <Text style={style.label}>Year Level:</Text>
+                        <TextInput maxLength={1} keyboardType={'numeric'}/>
+                        <Text style={style.label}>Gender:</Text>
+                            <View style={{flexDirection: 'row', paddingLeft: 5}}>
+                                <TouchableOpacity style={style.sexInput}><Text>Male</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput}><Text>Female</Text></TouchableOpacity>
+                            </View>
+                        <Text style={style.label}>Age:</Text>
+                        <TextInput maxLength={2} keyboardType={'numeric'}/>
+                    </View>
                 </View>
-                
+
+                <View style={style.button}>
+                    <Button title="PROCEED"
+                        onPress={() => Alert.alert('Test')}
+                        />
+                </View>
             </View>
-        </View>
         );
     }
 }
 
 
 const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    header: {
+        backgroundColor: '#800000',
+        height: 60,
+    },
+    headerTitle: {
+        color: 'white', 
+        textAlign: 'center', 
+        fontSize: 22, 
+        paddingTop: 15
+    },
+    body: {
+        marginTop: 30,
+        marginLeft: 20,
+        marginRight: 20,
+        borderWidth: 0.5,
+        padding: 10,
+        borderRadius: 2,
+    },
+    label: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    button: {
+        bottom: 0,
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    numericInput: {
+        borderWidth: 0.5,
+        height: 40, 
+        width: 20, 
+        marginLeft: 5,
+    },
+    sexInput: {
+        marginRight: 5,
+        borderWidth: 0.5,
+    }
     
 });
 
