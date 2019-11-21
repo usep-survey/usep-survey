@@ -30,6 +30,10 @@ class StudentFormScreen extends React.Component {
         this.props.navigation.navigate('Home');
     }
 
+    sexSelection = (sexInput) => {
+        this.setState({sex: sexInput});
+    }
+
     render() {
         
         return (
@@ -64,39 +68,39 @@ class StudentFormScreen extends React.Component {
                             <Picker.Item label="BS Information Technology" value="BSIT"/>
                             <Picker.Item label="BS Civil Engineering" value="BSCE"/>
                     </Picker>
-                    {/* <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', borderWidth: 0.5}}>
                             <Text>Year Level:</Text>
-                            <TextInput maxLength={1} keyboardType={'numeric'} style={style.numericInput}/>
+                            <TextInput maxLength={1} keyboardType={'numeric'} style={style.numericInput} onChangeText={(input) => this.setState({yearlevel: input})}/>
                         </View>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text>Sex:</Text>
                             <View style={{flexDirection: 'row', paddingLeft: 5}}>
-                                <TouchableOpacity style={style.sexInput}><Text>Male</Text></TouchableOpacity>
-                                <TouchableOpacity style={style.sexInput}><Text>Female</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('male')}><Text>Male</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('female')}><Text>Female</Text></TouchableOpacity>
                             </View>
                         </View>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', borderWidth: 0.5}}>
                             <Text>Age:</Text>
-                            <TextInput maxLength={2} keyboardType={'numeric'} style={[style.numericInput, {width: 27}]}/>
+                            <TextInput maxLength={2} keyboardType={'numeric'} style={[style.numericInput, {width: 27}]} onChangeText={(input) => this.setState({age: input})}/>
                         </View>
-                    </View> */}
-                    <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
+                    </View>
+                    {/* <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
                         <Text style={style.label}>Year Level:</Text>
                         <TextInput maxLength={1} keyboardType={'numeric'}/>
                         <Text style={style.label}>Gender:</Text>
                             <View style={{flexDirection: 'row', paddingLeft: 5}}>
-                                <TouchableOpacity style={style.sexInput}><Text>Male</Text></TouchableOpacity>
-                                <TouchableOpacity style={style.sexInput}><Text>Female</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('male')}><Text>Male</Text></TouchableOpacity>
+                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('female')}><Text>Female</Text></TouchableOpacity>
                             </View>
                         <Text style={style.label}>Age:</Text>
                         <TextInput maxLength={2} keyboardType={'numeric'}/>
-                    </View>
+                    </View> */}
                 </View>
 
                 <View style={style.button}>
                     <Button title="PROCEED"
-                        onPress={() => Alert.alert('Test')}
+                        onPress={() => Alert.alert(this.state.college + this.state.course + this.state.yearlevel + this.state.sex + this.state.age)}
                         />
                 </View>
             </View>
@@ -138,7 +142,7 @@ const style = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     numericInput: {
-        borderWidth: 0.5,
+        // borderWidth: 0.5,
         height: 40, 
         width: 20, 
         marginLeft: 5,
