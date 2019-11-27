@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, ListView, TouchableWithoutFeedback, BackHandler, AppState,
+import { View, Text, StatusBar, ListView, TouchableOpacity, BackHandler, AppState,
     Image, Modal, ActivityIndicator, StyleSheet, Button, ScrollView} from 'react-native';
 
 import { withNavigation } from 'react-navigation';
@@ -30,6 +30,7 @@ class HomeScreen extends React.Component {
             form: false,
             submit: false,
             loading: true,
+            keys: [],
         },
         this.form = null;
         this.index = 0;
@@ -139,6 +140,7 @@ class HomeScreen extends React.Component {
 
     render() {
         let num = 0;
+        let tempKeys = [];
         let StudentSurveyForm = this.form !== null ? this.form.map(section => 
             {
                 if(this.state.id === section.SectionID) {
@@ -184,34 +186,34 @@ class HomeScreen extends React.Component {
                                 marginBottom: 25,
                             }}>
                                 <View style={{width: '2.5%', height: '100%'}}></View>
-                                <View style={{height: '150%', width: '20%', }}>
+                                <TouchableOpacity style={{height: '150%', width: '20%', }}>
                                     <Image style={{
                                         width: 50,
                                         height: 50,
                                     }} source={VerySatisfied}></Image>
-                                </View>
+                                </TouchableOpacity>
                                 <View style={{width: '5%', height: '100%'}}></View>
-                                <View style={{height: '150%', width: '20%', }}>
+                                <TouchableOpacity style={{height: '150%', width: '20%', }}>
                                     <Image style={{
                                         width: 50,
                                         height: 50,
                                     }} source={Satisfied}></Image>
-                                </View>
+                                </TouchableOpacity>
 
                                 <View style={{width: '5%', height: '100%'}}></View>
-                                <View style={{height: '150%', width: '20%', }}>
+                                <TouchableOpacity style={{height: '150%', width: '20%', }}>
                                     <Image style={{
                                         width: 50,
                                         height: 50,
                                     }} source={Dissatisfied}></Image>
-                                </View>
+                                </TouchableOpacity>
                                 <View style={{width: '5%', height: '100%'}}></View>
-                                <View style={{height: '150%', width: '20%', }}>
+                                <TouchableOpacity style={{height: '150%', width: '20%', }}>
                                     <Image style={{
                                         width: 50,
                                         height: 50,
                                     }} source={VeryDissatisfied}></Image>
-                                </View>
+                                </TouchableOpacity>
                                 
                             </View>
                             <View style={{
@@ -243,7 +245,7 @@ class HomeScreen extends React.Component {
             { this.state.loading && 
                 <View style={[styles.ActivityIndicatorContainer]}>
                     <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', }}>
-                        <ActivityIndicator size={50} color='red'/>
+                        <ActivityIndicator size={50} color='#800000'/>
                     </View>
                     <Text>Loading survey form...</Text>
                 </View>

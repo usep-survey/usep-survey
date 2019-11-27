@@ -14,10 +14,10 @@ class StudentFormScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            course: 'Course',
+            course: 'BSIT',
             yearlevel: '',
-            college: 'College',
-            sex: '',
+            college: 'CE',
+            sex: 'Male',
             age: '',
         }
         
@@ -26,12 +26,30 @@ class StudentFormScreen extends React.Component {
     componentDidMount() {
     }
 
-    gotoCollegeSurvey = () => {
-        this.props.navigation.navigate('Home');
+    setCourse = (course) => {
+        this.setState({course: course});
     }
 
-    sexSelection = (sexInput) => {
-        this.setState({sex: sexInput});
+    setYear = (year) => {
+        this.setState({year: year});
+    }
+
+    setCollege = (college) => {
+        this.setState({college: college});
+    }
+
+    setSex = (sex) => {
+        this.setState({sex: sex});
+    }
+
+    setAge = (age) => {
+        this.setState({age: age});
+    }
+
+    proceedSurvey = () => {
+        if(this.state.age !== '') {
+            this.props.navigation.navigate('Home');
+        }
     }
 
     render() {
@@ -39,68 +57,106 @@ class StudentFormScreen extends React.Component {
         return (
             <View style={style.container}>
                 <View style={style.header}>
-                    <Text style={style.headerTitle}>Student's Satisfaction Survey Form</Text>
+                    <Text style={style.headerTitle}>Student's Information Form</Text>
                 </View>
 
-                <View style={style.body}>
+                <View style={style.formContainer}>
                     <Text style={style.label}>College:</Text>
-                    <Picker
-                        selectedValue={this.state.college}
-                            onValueChange={(college, courseIndex) => {
-                                this.setState({college: college});
-                            }}
-                        >
-                            <Picker.Item label="College of Engineering" value="CE"/>
-                            <Picker.Item label="College of Arts and Sciences" value="CAS"/>
-                            <Picker.Item label="College of Education" value="CED"/>
-                            <Picker.Item label="College of Information and Computing" value="CIC"/>
-                            <Picker.Item label="College of Technology" value="CT"/>
-                            <Picker.Item label="College of Governance and Business" value="CGB"/>
-                            <Picker.Item label="School of Applied Economics" value="SAEC"/>
-                    </Picker>
-                    <Text style={style.label}>Course / Program:</Text>
-                    <Picker
-                        selectedValue={this.state.course}
-                            onValueChange={(course, courseIndex) => {
-                                this.setState({course: course});
-                            }}
-                        >
-                            <Picker.Item label="BS Information Technology" value="BSIT"/>
-                            <Picker.Item label="BS Civil Engineering" value="BSCE"/>
-                    </Picker>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10,}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', borderWidth: 0.5}}>
-                            <Text>Year Level:</Text>
-                            <TextInput maxLength={1} keyboardType={'numeric'} style={style.numericInput} onChangeText={(input) => this.setState({yearlevel: input})}/>
-                        </View>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Text>Sex:</Text>
-                            <View style={{flexDirection: 'row', paddingLeft: 5}}>
-                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('male')}><Text>Male</Text></TouchableOpacity>
-                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('female')}><Text>Female</Text></TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{flexDirection: 'row', alignItems: 'center', borderWidth: 0.5}}>
-                            <Text>Age:</Text>
-                            <TextInput maxLength={2} keyboardType={'numeric'} style={[style.numericInput, {width: 27}]} onChangeText={(input) => this.setState({age: input})}/>
-                        </View>
+                    <View style={style.borderField}>
+                        <Picker
+                            style={style.pickerStyle}
+                            selectedValue={this.state.college}
+                                onValueChange={(college, courseIndex) => {
+                                    this.setCollege(college);
+                                }}
+                            >
+                                <Picker.Item label="College of Engineering" value="CE"/>
+                                <Picker.Item label="College of Arts and Sciences" value="CAS"/>
+                                <Picker.Item label="College of Education" value="CED"/>
+                                <Picker.Item label="College of Information and Computing" value="CIC"/>
+                                <Picker.Item label="College of Technology" value="CT"/>
+                                <Picker.Item label="College of Governance and Business" value="CGB"/>
+                                <Picker.Item label="School of Applied Economics" value="SAEC"/>
+                        </Picker>
                     </View>
-                    {/* <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
-                        <Text style={style.label}>Year Level:</Text>
-                        <TextInput maxLength={1} keyboardType={'numeric'}/>
-                        <Text style={style.label}>Gender:</Text>
-                            <View style={{flexDirection: 'row', paddingLeft: 5}}>
-                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('male')}><Text>Male</Text></TouchableOpacity>
-                                <TouchableOpacity style={style.sexInput} onPress={()=> this.sexSelection('female')}><Text>Female</Text></TouchableOpacity>
-                            </View>
-                        <Text style={style.label}>Age:</Text>
-                        <TextInput maxLength={2} keyboardType={'numeric'}/>
-                    </View> */}
+                    <Text style={style.label}>Course/Program:</Text>
+                    { this.state.college === 'CIC' && 
+                        <View style={style.borderField}>
+                            <Picker
+                                style={style.pickerStyle}
+                                selectedValue={this.state.course}
+                                    onValueChange={(course, courseIndex) => {
+                                        this.setCourse(course);
+                                    }}
+                                >
+                                    <Picker.Item label="BS in Information Technology" value="BSIT"/>
+                                    <Picker.Item label="BS in Computer Science" value="BSCS"/>
+                                    <Picker.Item label="BS in Information Technology" value="BSIT"/>
+                            </Picker>
+                        </View>
+                    }
+
+                    { this.state.college === 'CE' && 
+                        <View style={style.borderField}>
+                            <Picker
+                                style={style.pickerStyle}
+                                selectedValue={this.state.course}
+                                    onValueChange={(course, courseIndex) => {
+                                        this.setCourse(course);
+                                    }}
+                                >
+                                    {/* For College of Information and Computing */}
+                                    <Picker.Item label="BS in Civil Engineering" value="BSCE"/>
+                                    <Picker.Item label="BS in Electrical Engineering" value="BSEE"/>
+                                    <Picker.Item label="BS in Geodetic Engineering" value="BSGE"/>
+                            </Picker>
+                        </View>
+                    }
+                    <Text style={style.label}>Sex:</Text>
+                    <View style={style.borderField}>
+                        <Picker
+                            style={style.pickerStyle}
+                            selectedValue={this.state.sex}
+                                onValueChange={(sex, sexIndex) => {
+                                    this.setSex(sex);
+                                }}
+                            >
+                                {/* For College of Information and Computing */}
+                                <Picker.Item label="Male" value="Male"/>
+                                <Picker.Item label="Female" value="Female"/>
+                        </Picker>
+                    </View>
+                    <Text style={style.label}>Year Level:</Text>
+                    <View style={style.borderField}>
+                        <Picker
+                            style={style.pickerStyle}
+                            selectedValue={this.state.year}
+                                onValueChange={(year, yearIndex) => {
+                                    this.setYear(year);
+                                }}
+                            >
+                                <Picker.Item label="1st year" value="1st"/>
+                                <Picker.Item label="2nd year" value="2nd"/>
+                                <Picker.Item label="3rd year" value="3rd"/>
+                                <Picker.Item label="4th year" value="4th"/>
+                                <Picker.Item label="5th year" value="5th"/>
+                                <Picker.Item label="6th year" value="6th"/>
+                                <Picker.Item label="7th year" value="7th"/>
+                        </Picker>
+                    </View>
+                    
+                    <Text style={style.label}>Age:</Text>
+                    <TextInput maxLength={2} keyboardType={'numeric'} 
+                        style={[style.numericInput, style.pickerStyle]} 
+                        onChangeText={(age) => {
+                            this.setAge(age);
+                        }}/>
                 </View>
 
                 <View style={style.button}>
                     <Button title="PROCEED"
-                        onPress={() => Alert.alert(this.state.college + this.state.course + this.state.yearlevel + this.state.sex + this.state.age)}
+                        color='#168F93'
+                        onPress={this.proceedSurvey}
                         />
                 </View>
             </View>
@@ -110,48 +166,49 @@ class StudentFormScreen extends React.Component {
 
 
 const style = StyleSheet.create({
+    pickerStyle: {
+        color: '#168F93',
+    },
+    formContainer: {
+        width: '100%',
+        padding: '5%',
+    },
+    borderField: {
+        width: '100%',
+        borderBottomWidth: 1,
+        marginBottom: '10%',
+        borderColor: 'rgba(0, 0, 0, 0.3)',
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
     },
     header: {
         backgroundColor: '#800000',
-        height: 60,
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        paddingTop: '4%',
+        paddingBottom: '4%',
     },
     headerTitle: {
-        color: 'white', 
-        textAlign: 'center', 
-        fontSize: 22, 
-        paddingTop: 15
-    },
-    body: {
-        marginTop: 30,
-        marginLeft: 20,
-        marginRight: 20,
-        borderWidth: 0.5,
-        padding: 10,
-        borderRadius: 2,
+        color: 'white',
+        textAlign: 'left', 
+        fontSize: 20, 
     },
     label: {
         fontSize: 20,
         fontWeight: 'bold',
     },
     button: {
-        bottom: 0,
         flex: 1,
         justifyContent: 'flex-end',
     },
     numericInput: {
-        // borderWidth: 0.5,
-        height: 40, 
-        width: 20, 
         marginLeft: 5,
+        width: '100%',
+        borderBottomWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.3)',
     },
-    sexInput: {
-        marginRight: 5,
-        borderWidth: 0.5,
-    }
-    
 });
 
 

@@ -3,7 +3,10 @@ import { StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
 
     HeaderSurveyContainer: {
-        padding: 15,
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        paddingTop: '4%',
+        paddingBottom: '4%',
         backgroundColor: '#800000',
     },
 
